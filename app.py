@@ -1,5 +1,6 @@
 from flask import render_template
 from flask import Flask
+from flask import request
 
 app = Flask(__name__)
 
@@ -20,7 +21,8 @@ def subscribe():
 
 @app.route('/form', methods = ['POST'])
 def form():
-   return render_template('form.html')
-#    # first_name = request.form.get('first_name')
-#    # last_name = request.form.get('last_name')
-#    # email = request.form.get('email')
+   first_name = request.form.get('first_name')
+   last_name = request.form.get('last_name')
+   email = request.form.get('email')
+
+   return render_template('form.html', first_name=first_name, last_name=last_name, email = email )
