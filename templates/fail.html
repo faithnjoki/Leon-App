@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {%   block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary" >
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,6 +17,9 @@
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('subscribe')}}">Subscribe</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('friends')}}">Friends</a>
+          </li> 
         </li>  
       </ul>
       
@@ -24,23 +27,37 @@
   </div>
 </nav>
 
-<h3>{{error_statement}}</h3>
 <hr>
 <div class="container">
+    <!-- form -->
+    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h3>{{error_statement}}</h3>
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button> 
+
+    
+     </div> -->
+
+     <!-- button 2 -->
+     <div class="alert alert-warning alert-dismissible" role="alert">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+        <p></strong> {{error_statement}}.<strong></p>
+      </div>
 <form action="/form" method="POST">
     <div class="form-group">
       <label for="exampleInputEmail1">First Name...</label>
-      <input type="text" class="form-control" placeholder="First Name" name ="first_name">
+        <input type="text" class="form-control" placeholder="First Name" name ="first_name" value={{first_name}}>
      
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Last Name...</label>
-        <input type="text" class="form-control"  placeholder="Last Name" name ="last_name">
+        <input type="text" class="form-control"  placeholder="Last Name" name ="last_name" value ={{last_name}} >
        
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address...</label>
-        <input type="email" class="form-control"  placeholder="Email Adress" name ="email">
+        <input type="email" class="form-control"  placeholder="Email Adress" name ="email" value={{email}}>
        
       </div>
     <br><br>

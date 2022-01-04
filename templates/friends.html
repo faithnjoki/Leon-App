@@ -17,19 +17,21 @@
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('subscribe')}}">Subscribe</a>
-          <li class="nav-item">
+        </li> 
+        <li class="nav-item">
             <a class="nav-link" href="{{ url_for('friends')}}">Friends</a>
-          </li> 
-        </li>  
+          </li>  
       </ul>
       
     </div>
   </div>
 </nav>
-<div class="container">
-  <h1>About me</h1>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam earum, dignissimos cum deleniti soluta saepe sit reiciendis id neque rerum eos dolor aliquam voluptas a aperiam quis perferendis beatae culpa quas perspiciatis accusamus rem dolorum quibusdam natus! Doloribus nihil magni fugiat quos odit at molestias, itaque reiciendis velit ex ducimus.</p>
+<h3>Friends...</h3>
+<hr>
+<form action="/friends" method="post">
+    <input type="text" placeholder="name" name="name">
+    <input type="submit" value="Add name" class="btn btn-primary" >
+</form>
 
-</div>
 
 {% endblock %}
