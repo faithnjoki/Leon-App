@@ -3,18 +3,29 @@ from flask import Flask
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask import redirect
+import os
+
+
 
 
 app = Flask(__name__)
-app.config['SQLAlCHEMY_DATABASE_URI'] = 'sqlite:///friends.db'
+# app.config['SQLAlCHEMY_DATABASE_URI'] = 'sqlite:///friends.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/friends.db'
+
+# This avoids the notifications on terminal
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 #initalize database
 db = SQLAlchemy(app)
 
+subscribers = []
+
 # create db model
 class Friends(db.Model):
-   id = db.Column(db.Integer,primary_key=True)
-   name = db.Column(db.String, nullable=False)
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(50), nullable=False)
    date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
 # create a function to return a string when we add something
@@ -22,9 +33,7 @@ class Friends(db.Model):
        return '<Name %r>' % self.id
 
 
-subscribers = []
-
-
+  # ROUTES
 @app.route('/')
 def  index():
    return render_template ('index.html')
@@ -56,6 +65,17 @@ def form():
 @app.route('/friends', methods=['POST','GET'])
 def friends():
    if request.method == 'POST':
-      return 'You clicked the button'
+      friend_name = request.form['name']
+      # Friends is db table
+      new_friend = Friends(name=friend_name)
+      # push to database
+      try:
+         db.session.add(new_friend)
+         db.session.commit()
+         return redirect('/friends')
+      except:
+         return 'There was an Error Ading your Friend...'
    else:
-      return render_template ('friends.html')
+      friends = Friends.query.order_by(Friends.date_created)
+      
+      return render_template ('friends.html',friends = friends)
