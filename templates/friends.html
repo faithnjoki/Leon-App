@@ -32,6 +32,14 @@
     <input type="text" placeholder="name" name="name">
     <input type="submit" value="Add name" class="btn btn-primary" >
 </form>
+<br><br><br>
+{% for friend in friends  %}
+<h5>
+    {{friend.name}}
+</h5>
+
+
+{% endfor %}
 
 
 {% endblock %}
