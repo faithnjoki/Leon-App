@@ -10,7 +10,7 @@ from flask import redirect
 
 
 app = Flask(__name__)
-# app.config['SQLAlCHEMY_DATABASE_URI'] = 'sqlite:///friends.db'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/friends.db'
 
 # This avoids the notifications on terminal
@@ -69,6 +69,7 @@ def friends():
       # Friends is db table
       new_friend = Friends(name=friend_name)
       # push to database
+      # a  try block
       try:
          db.session.add(new_friend)
          db.session.commit()
